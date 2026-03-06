@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-GB">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,10 +9,10 @@
 <body>
 
     <nav class="navbar">
-        <div class="logo">Lumora.AI</div>
+        <div class="logo">Lumora.</div>
         <div class="nav-right">
             <span class="status-badge">Launching Soon</span>
-            <a href="mailto:hello@lumora.ai" class="nav-cta">Register for Updates</a>
+            <a href="mailto:hello@lumora.ai" class="nav-cta">Email Us</a>
         </div>
     </nav>
 
@@ -21,23 +21,46 @@
             <h1>Biomass procurement.<br><span class="highlight">Without the blind spots.</span></h1>
             
             <p class="hero-description">
-                Lumora AI is building the digital infrastructure for a transparent agricultural supply chain.
+                Lumora AI is building the digital infrastructure for a transparent agricultural supply chain. 
             </p>
 
-
             <div class="usp-list">
-                <div class="usp-item"><span>✓</span> Quality Verification</div>
-                <div class="usp-item"><span>✓</span> Logistics Optimisation</div>
-                <div class="usp-item"><span>✓</span> Network Management</div>
+                <div class="usp-item">Quality Verification</div>
+                <div class="usp-item">Logistics Optimisation</div>
+                <div class="usp-item">Network Creation</div>
             </div>
         </div>
         
         <div class="hero-visual">
-            <div class="circle-system">
-                <div class="center-node">AI</div>
-                <div class="orbiting-node farm" title="Source">🌱</div>
-                <div class="orbiting-node energy" title="Energy">⚡</div>
-                <div class="orbiting-node data" title="Data">📊</div>
+            <div class="stage">
+                <div class="grid"></div>
+                
+                <div class="process-container">
+                    
+                    <div class="icon-node" id="source-farm">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path d="M3 21h18M5 21V9l7-5 7 5v12M9 21v-4a3 3 0 016 0v4" />
+                        </svg>
+                        <span>Source</span>
+                    </div>
+
+                    <div class="icon-node lens-node">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="11" cy="11" r="8" />
+                            <path d="M21 21l-4.35-4.35" />
+                        </svg>
+                        <div class="scan-beam"></div>
+                    </div>
+
+                    <div class="icon-node" id="dest-plant">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path d="M2 21h20M7 21l-4-8V9h4v4M17 21l4-8V9h-4v4M7 9l4-4h2l4 4" />
+                        </svg>
+                        <span>Processor</span>
+                    </div>
+
+                    <div class="ping-dot"></div>
+                </div>
             </div>
         </div>
     </main>

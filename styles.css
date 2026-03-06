@@ -1,0 +1,195 @@
+:root {
+    --primary-green: #0A3622;
+    --accent-green: #2ECC71;
+    --bg-light: #F9FAF8;
+    --text-dark: #1F2937;
+    --text-light: #6B7280;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+body {
+    background-color: var(--bg-light);
+    color: var(--text-dark);
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* --- Navigation --- */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 5%;
+    background: white;
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--primary-green);
+}
+
+.nav-right {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.status-badge {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--accent-green);
+    background: rgba(46, 204, 113, 0.1);
+    padding: 0.4rem 0.8rem;
+    border-radius: 20px;
+    white-space: nowrap;
+}
+
+.nav-cta {
+    text-decoration: none;
+    color: white;
+    background: var(--primary-green);
+    font-weight: 600;
+    padding: 0.6rem 1.2rem;
+    border-radius: 50px;
+    transition: 0.3s;
+}
+
+.nav-cta:hover {
+    background: var(--accent-green);
+}
+
+/* --- Hero Section --- */
+.hero {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 10%;
+    gap: 4rem;
+}
+
+.hero-content {
+    flex: 1.2;
+    animation: fadeInUp 1s ease-out;
+}
+
+h1 {
+    font-size: 3.5rem;
+    line-height: 1.1;
+    color: var(--primary-green);
+    margin-bottom: 1.5rem;
+}
+
+.highlight {
+    color: var(--accent-green);
+}
+
+.hero-description {
+    font-size: 1.2rem;
+    color: var(--text-light);
+    margin-bottom: 2rem;
+    max-width: 550px;
+}
+
+.usp-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+}
+
+.usp-item {
+    font-weight: 600;
+    color: var(--primary-green);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.usp-item span { color: var(--accent-green); }
+
+/* --- Animated Visual --- */
+.hero-visual {
+    flex: 0.8;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.circle-system {
+    position: relative;
+    width: 280px;
+    height: 280px;
+    border: 2px dashed rgba(10, 54, 34, 0.1);
+    border-radius: 50%;
+    animation: rotate 20s linear infinite;
+}
+
+.center-node {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: var(--primary-green);
+    color: white;
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    box-shadow: 0 0 40px rgba(46, 204, 113, 0.3);
+    animation: counter-rotate 20s linear infinite;
+}
+
+.orbiting-node {
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    background: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.4rem;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+    animation: counter-rotate 20s linear infinite;
+}
+
+.farm { top: -25px; left: 115px; }
+.energy { bottom: 25px; right: -10px; }
+.data { bottom: 25px; left: -10px; }
+
+@keyframes rotate { 100% { transform: rotate(360deg); } }
+@keyframes counter-rotate { 100% { transform: translate(-50%, -50%) rotate(-360deg); } }
+@keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+/* --- Responsive --- */
+@media (max-width: 1024px) {
+    .hero { flex-direction: column; text-align: center; padding: 4rem 5%; gap: 6rem; }
+    h1 { font-size: 2.8rem; }
+    .hero-description { margin: 0 auto 2rem; }
+    .usp-list { justify-content: center; }
+}
+
+@media (max-width: 600px) {
+    .status-badge { display: none; }
+    h1 { font-size: 2.2rem; }
+    .circle-system { width: 220px; height: 220px; }
+}
+
+.footer {
+    padding: 2rem;
+    text-align: center;
+    font-size: 0.9rem;
+    color: var(--text-light);
+}

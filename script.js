@@ -11,6 +11,7 @@ document.addEventListener("DOMContentLoaded", () => {
         heroContent.style.transform = 'translateY(0)';
     }, 200);
 
+
     // Syncing the lens glimmer effect with the CSS ping dot
     const scanBeam = document.querySelector('.scan-beam');
     

@@ -1,716 +1,487 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-GB">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Lumora AI — Agricultural Intelligence</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<title>Lumora | Product Discovery</title>
 <style>
-  :root {
-    --forest: #1E3A1F;
-    --moss: #4A7C3F;
-    --sage: #7AAD6A;
-    --cream: #F4F0E6;
-    --sand: #E8E0CC;
-    --amber: #C8A84B;
-    --red-pain: #8B2C2C;
-    --red-light: #F5E8E8;
-    --white: #FAFAF7;
-    --dark: #111A0F;
-    --muted: #6B7569;
-    --font-display: 'Playfair Display', Georgia, serif;
-    --font-body: 'DM Sans', sans-serif;
-  }
+:root {
+    --primary-green: #0A3622;
+    --accent-green: #2ECC71;
+    --bg-light: #F9FAF8;
+    --text-dark: #1F2937;
+    --text-light: #6B7280;
+    --red-pain: #991B1B;
+    --red-bg: #FEF2F2;
+    --red-border: rgba(153,27,27,0.15);
+    --border: rgba(0,0,0,0.07);
+    --white: #FFFFFF;
+}
 
-  * { box-sizing: border-box; margin: 0; padding: 0; }
+* { margin: 0; padding: 0; box-sizing: border-box;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
 
-  body {
-    font-family: var(--font-body);
-    background: var(--cream);
-    color: var(--dark);
+body {
+    background: var(--bg-light);
+    color: var(--text-dark);
     min-height: 100vh;
     overflow-x: hidden;
-  }
+}
 
-  /* ── SCREENS ── */
-  .screen {
-    display: none;
-    min-height: 100vh;
-    animation: fadeIn 0.4s ease;
-  }
-  .screen.active { display: flex; flex-direction: column; }
-
-  @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(12px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
-
-  /* ── PROGRESS BAR ── */
-  .progress-bar {
-    height: 3px;
-    background: var(--sand);
+/* ── PROGRESS ── */
+.progress-bar {
+    height: 2px;
+    background: rgba(0,0,0,0.06);
     position: fixed;
     top: 0; left: 0; right: 0;
-    z-index: 100;
-  }
-  .progress-fill {
+    z-index: 200;
+}
+.progress-fill {
     height: 100%;
-    background: var(--moss);
+    background: var(--accent-green);
     transition: width 0.4s ease;
     width: 0%;
-  }
+}
 
-  /* ── NAV ── */
-  nav {
-    padding: 1.5rem 2.5rem;
+/* ── NAV ── */
+.navbar {
     display: flex;
-    align-items: center;
     justify-content: space-between;
-    border-bottom: 1px solid rgba(74,124,63,0.15);
+    align-items: center;
+    padding: 1.25rem 5%;
     background: var(--white);
+    border-bottom: 1px solid var(--border);
     position: sticky;
-    top: 3px;
-    z-index: 50;
-  }
-  .logo {
-    font-family: var(--font-display);
-    font-size: 1.4rem;
-    font-weight: 700;
-    color: var(--forest);
-    letter-spacing: -0.02em;
-  }
-  .logo span {
-    font-weight: 300;
-    color: var(--moss);
-    font-size: 0.8rem;
-    display: block;
-    font-family: var(--font-body);
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-  }
-  .back-btn {
+    top: 2px;
+    z-index: 100;
+}
+.logo {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--primary-green);
+    letter-spacing: -1px;
+    text-decoration: none;
+}
+.back-btn {
     background: none;
-    border: 1px solid var(--sand);
-    color: var(--muted);
-    padding: 0.4rem 1rem;
+    border: 1px solid rgba(0,0,0,0.12);
+    color: var(--text-light);
+    padding: 0.45rem 1.1rem;
     border-radius: 20px;
-    font-family: var(--font-body);
-    font-size: 0.8rem;
+    font-size: 0.78rem;
+    font-weight: 500;
     cursor: pointer;
     transition: all 0.2s;
     display: none;
-  }
-  .back-btn:hover { border-color: var(--moss); color: var(--moss); }
-  .back-btn.visible { display: block; }
+}
+.back-btn:hover { border-color: var(--primary-green); color: var(--primary-green); }
+.back-btn.visible { display: block; }
 
-  /* ── CONTENT AREA ── */
-  .content {
+/* ── SCREENS ── */
+.screen {
+    display: none;
+    min-height: calc(100vh - 62px);
+    animation: fadeUp 0.35s ease;
+}
+.screen.active { display: flex; flex-direction: column; }
+
+@keyframes fadeUp {
+    from { opacity: 0; transform: translateY(10px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── CONTENT WRAPPER ── */
+.content {
     flex: 1;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 3rem 2rem;
-    max-width: 960px;
+    padding: 4rem 5%;
+    max-width: 900px;
     margin: 0 auto;
     width: 100%;
-  }
+}
 
-  .eyebrow {
-    font-size: 0.7rem;
-    letter-spacing: 0.2em;
+/* ── TYPOGRAPHY ── */
+.eyebrow {
+    font-size: 0.65rem;
+    font-weight: 700;
     text-transform: uppercase;
-    color: var(--moss);
-    font-weight: 500;
+    letter-spacing: 1.5px;
+    color: var(--accent-green);
     margin-bottom: 1rem;
-  }
-
-  h1 {
-    font-family: var(--font-display);
-    font-size: clamp(2rem, 5vw, 3.5rem);
-    font-weight: 900;
-    color: var(--forest);
+}
+.screen-title {
+    font-size: clamp(1.8rem, 4vw, 3rem);
+    font-weight: 800;
+    color: var(--primary-green);
     line-height: 1.1;
-    margin-bottom: 1.2rem;
+    margin-bottom: 1rem;
     text-align: center;
-    letter-spacing: -0.03em;
-  }
-
-  h1 em {
-    font-style: italic;
-    color: var(--moss);
-  }
-
-  .subtitle {
+    letter-spacing: -0.5px;
+}
+.screen-sub {
     font-size: 1rem;
-    color: var(--muted);
+    color: var(--text-light);
+    line-height: 1.65;
     text-align: center;
     max-width: 480px;
-    line-height: 1.65;
     margin-bottom: 3rem;
-    font-weight: 300;
-  }
+}
 
-  /* ── CHOICE CARDS ── */
-  .choice-grid {
+/* ── CHOICE CARDS — landing ── */
+.choice-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 1.25rem;
     width: 100%;
-    max-width: 640px;
-  }
+    max-width: 580px;
+}
+@media (max-width: 480px) { .choice-grid { grid-template-columns: 1fr; } }
 
-  @media (max-width: 500px) {
-    .choice-grid { grid-template-columns: 1fr; }
-  }
-
-  .choice-card {
+.choice-card {
     background: var(--white);
-    border: 1.5px solid var(--sand);
+    border: 1.5px solid var(--border);
     border-radius: 16px;
-    padding: 2rem 1.5rem;
+    padding: 2.2rem 1.8rem;
     cursor: pointer;
-    transition: all 0.25s ease;
+    transition: all 0.22s ease;
     text-align: center;
-    position: relative;
-    overflow: hidden;
-  }
-  .choice-card::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(135deg, var(--forest) 0%, var(--moss) 100%);
-    opacity: 0;
-    transition: opacity 0.25s;
-    border-radius: 14px;
-  }
-  .choice-card:hover {
-    border-color: var(--moss);
+}
+.choice-card:hover {
+    border-color: var(--accent-green);
     transform: translateY(-3px);
-    box-shadow: 0 12px 40px rgba(30,58,31,0.12);
-  }
-  .choice-card:hover::before { opacity: 1; }
-  .choice-card:hover .card-icon,
-  .choice-card:hover .card-title,
-  .choice-card:hover .card-sub { color: var(--white); }
-  .choice-card:hover .card-title { color: var(--cream); }
-
-  .card-icon {
-    font-size: 2.5rem;
-    margin-bottom: 0.8rem;
-    display: block;
-    position: relative;
-    z-index: 1;
-    transition: color 0.25s;
-  }
-  .card-title {
-    font-family: var(--font-display);
-    font-size: 1.2rem;
+    box-shadow: 0 10px 32px rgba(10,54,34,0.1);
+}
+.choice-card:hover .choice-label { color: var(--primary-green); }
+.choice-icon { font-size: 2.4rem; display: block; margin-bottom: 1rem; }
+.choice-label {
+    font-size: 1.05rem;
     font-weight: 700;
-    color: var(--forest);
-    margin-bottom: 0.4rem;
-    position: relative;
-    z-index: 1;
-    transition: color 0.25s;
-  }
-  .card-sub {
-    font-size: 0.8rem;
-    color: var(--muted);
-    line-height: 1.5;
-    position: relative;
-    z-index: 1;
-    transition: color 0.25s;
-    font-weight: 300;
-  }
+    color: var(--text-dark);
+    margin-bottom: 0.35rem;
+    transition: color 0.2s;
+}
+.choice-desc { font-size: 0.8rem; color: var(--text-light); line-height: 1.5; }
 
-  /* ── SCENARIO HEADER ── */
-  .scenario-box {
-    background: var(--forest);
-    color: var(--cream);
+/* ── SCENARIO BOX ── */
+.scenario-box {
+    background: var(--primary-green);
     border-radius: 16px;
-    padding: 2rem 2.5rem;
-    margin-bottom: 2.5rem;
+    padding: 2.2rem 2.5rem;
     width: 100%;
-    max-width: 680px;
+    max-width: 620px;
+    margin-bottom: 2.5rem;
     text-align: center;
     position: relative;
     overflow: hidden;
-  }
-  .scenario-box::after {
+}
+.scenario-box::after {
     content: '';
     position: absolute;
-    top: -40px; right: -40px;
-    width: 180px; height: 180px;
+    top: -50px; right: -50px;
+    width: 200px; height: 200px;
     border-radius: 50%;
-    background: rgba(122,173,106,0.12);
-  }
-  .scenario-box .eyebrow { color: var(--sage); margin-bottom: 0.5rem; }
-  .scenario-box h2 {
-    font-family: var(--font-display);
-    font-size: clamp(1.3rem, 3vw, 2rem);
-    font-weight: 700;
-    color: var(--cream);
-    line-height: 1.25;
-    margin-bottom: 0.75rem;
-  }
-  .scenario-box p {
-    font-size: 0.9rem;
-    color: rgba(244,240,230,0.7);
-    font-weight: 300;
-    line-height: 1.6;
-  }
+    background: rgba(46,204,113,0.07);
+    pointer-events: none;
+}
+.scenario-box .eyebrow { color: var(--accent-green); }
+.scenario-box .screen-title {
+    color: var(--white);
+    font-size: clamp(1.3rem, 3vw, 1.9rem);
+    margin-bottom: 0.7rem;
+}
+.scenario-box p { font-size: 0.88rem; color: rgba(255,255,255,0.65); line-height: 1.6; }
 
-  /* ── ACTION BUTTONS ── */
-  .action-grid {
+/* ── ACTION BUTTONS ── */
+.action-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 1rem;
     width: 100%;
-    max-width: 580px;
-  }
+    max-width: 520px;
+}
+@media (max-width: 440px) { .action-grid { grid-template-columns: 1fr; } }
 
-  @media (max-width: 480px) {
-    .action-grid { grid-template-columns: 1fr; }
-  }
-
-  .action-btn {
+.action-btn {
     padding: 1.4rem 1.2rem;
     border-radius: 14px;
+    border: 1.5px solid transparent;
     cursor: pointer;
-    border: none;
-    font-family: var(--font-body);
-    font-size: 0.9rem;
-    font-weight: 500;
+    font-size: 0.88rem;
+    font-weight: 600;
     transition: all 0.2s ease;
     text-align: center;
     line-height: 1.4;
-  }
+}
+.action-btn .btn-icon { font-size: 1.5rem; display: block; margin-bottom: 0.4rem; }
+.action-btn .btn-label { display: block; margin-bottom: 0.2rem; font-size: 0.92rem; }
+.action-btn .btn-sub { display: block; font-size: 0.73rem; font-weight: 400; opacity: 0.75; }
 
-  .btn-pain {
-    background: var(--red-light);
+.btn-pain {
+    background: var(--red-bg);
     color: var(--red-pain);
-    border: 1.5px solid rgba(139,44,44,0.2);
-  }
-  .btn-pain:hover {
-    background: #EDCBCB;
+    border-color: var(--red-border);
+}
+.btn-pain:hover {
+    background: #FEE2E2;
     transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(139,44,44,0.15);
-  }
-  .btn-pain .btn-icon { font-size: 1.4rem; display: block; margin-bottom: 0.4rem; }
-  .btn-pain .btn-label { font-weight: 600; display: block; margin-bottom: 0.25rem; }
-  .btn-pain .btn-sub { font-size: 0.75rem; opacity: 0.75; font-weight: 300; }
+    box-shadow: 0 6px 20px rgba(153,27,27,0.12);
+}
 
-  .btn-lumora {
-    background: var(--forest);
-    color: var(--cream);
-    border: 1.5px solid var(--forest);
-  }
-  .btn-lumora:hover {
-    background: var(--moss);
+.btn-lumora {
+    background: var(--primary-green);
+    color: var(--white);
+    border-color: var(--primary-green);
+}
+.btn-lumora:hover {
+    background: #0D4A2E;
     transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(30,58,31,0.25);
-  }
-  .btn-lumora .btn-icon { font-size: 1.4rem; display: block; margin-bottom: 0.4rem; }
-  .btn-lumora .btn-label { font-weight: 600; display: block; margin-bottom: 0.25rem; color: var(--sage); }
-  .btn-lumora .btn-sub { font-size: 0.75rem; opacity: 0.8; font-weight: 300; }
+    box-shadow: 0 6px 20px rgba(10,54,34,0.22);
+}
+.btn-lumora .btn-label { color: var(--accent-green); }
 
-  /* ── PAIN SCREEN ── */
-  .invoice-card {
+/* ── INVOICE ── */
+.invoice-wrap {
     background: var(--white);
-    border: 1.5px solid rgba(139,44,44,0.3);
+    border: 1.5px solid var(--red-border);
     border-radius: 16px;
-    padding: 2rem;
-    max-width: 500px;
+    padding: 2rem 2.2rem;
     width: 100%;
-    margin-bottom: 2rem;
+    max-width: 460px;
+    margin-bottom: 1.5rem;
     position: relative;
-  }
-  .invoice-card::before {
-    content: 'INVOICE';
+}
+.invoice-tag {
     position: absolute;
     top: 1rem; right: 1.5rem;
     font-size: 0.6rem;
-    letter-spacing: 0.3em;
-    color: rgba(139,44,44,0.4);
-    font-weight: 500;
-  }
-  .invoice-title {
-    font-family: var(--font-display);
-    font-size: 0.9rem;
-    color: var(--muted);
-    margin-bottom: 0.5rem;
-  }
-  .invoice-amount {
-    font-family: var(--font-display);
-    font-size: clamp(2.5rem, 8vw, 4.5rem);
-    font-weight: 900;
+    font-weight: 700;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: rgba(153,27,27,0.35);
+}
+.invoice-label { font-size: 0.8rem; color: var(--text-light); margin-bottom: 0.3rem; }
+.invoice-amount {
+    font-size: clamp(3rem, 10vw, 5rem);
+    font-weight: 800;
     color: var(--red-pain);
-    letter-spacing: -0.04em;
-    margin-bottom: 0.25rem;
-  }
-  .invoice-amount span {
-    font-size: 0.45em;
-    vertical-align: super;
-    font-weight: 400;
-  }
-  .invoice-sub {
-    font-size: 0.8rem;
-    color: var(--muted);
-    font-weight: 300;
+    letter-spacing: -2px;
+    line-height: 1;
+    margin-bottom: 0.3rem;
+}
+.invoice-amount sup { font-size: 0.4em; font-weight: 600; vertical-align: super; letter-spacing: 0; }
+.invoice-sub {
+    font-size: 0.78rem;
+    color: var(--text-light);
+    line-height: 1.55;
     margin-bottom: 1.5rem;
-    line-height: 1.5;
-  }
-  .invoice-line {
+}
+.invoice-line {
     display: flex;
     justify-content: space-between;
-    padding: 0.5rem 0;
-    border-top: 1px solid var(--sand);
+    align-items: center;
+    padding: 0.55rem 0;
+    border-top: 1px solid rgba(0,0,0,0.06);
     font-size: 0.8rem;
-    color: var(--muted);
-  }
-  .invoice-line strong { color: var(--dark); font-weight: 500; }
+    color: var(--text-light);
+}
+.invoice-line strong { color: var(--text-dark); font-weight: 600; }
+.invoice-source {
+    font-size: 0.7rem;
+    color: var(--text-light);
+    text-align: center;
+    max-width: 400px;
+    line-height: 1.55;
+    margin-bottom: 1.8rem;
+}
 
-  .reconsider-btn {
+.reconsider-btn {
     background: none;
-    border: 1.5px solid var(--moss);
-    color: var(--moss);
-    padding: 0.7rem 2rem;
+    border: 1.5px solid var(--accent-green);
+    color: var(--primary-green);
+    padding: 0.75rem 2rem;
     border-radius: 30px;
-    font-family: var(--font-body);
     font-size: 0.85rem;
-    font-weight: 500;
+    font-weight: 600;
     cursor: pointer;
     transition: all 0.2s;
-  }
-  .reconsider-btn:hover { background: var(--moss); color: var(--white); }
+}
+.reconsider-btn:hover { background: var(--accent-green); color: var(--white); }
 
-  /* ── COMPARISON SCREEN ── */
-  .compare-grid {
+/* ── COMPARISON ── */
+.compare-header-row {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 1rem;
     width: 100%;
     max-width: 760px;
-    margin-bottom: 2.5rem;
-  }
-
-  @media (max-width: 560px) {
-    .compare-grid { grid-template-columns: 1fr; }
-  }
-
-  .compare-col {
-    border-radius: 16px;
-    overflow: hidden;
-  }
-  .compare-header {
-    padding: 1.25rem 1.5rem;
-    font-family: var(--font-display);
-    font-size: 1rem;
-    font-weight: 700;
-  }
-  .col-conventional .compare-header {
-    background: var(--sand);
-    color: var(--muted);
-  }
-  .col-lumora .compare-header {
-    background: var(--forest);
-    color: var(--cream);
-  }
-  .col-lumora .compare-header span {
-    color: var(--sage);
-  }
-
-  .compare-items {
-    background: var(--white);
-    border: 1.5px solid var(--sand);
-    border-top: none;
-    border-radius: 0 0 14px 14px;
-  }
-  .col-lumora .compare-items {
-    border-color: rgba(30,58,31,0.2);
-  }
-
-  .compare-item {
-    padding: 1rem 1.5rem;
-    border-bottom: 1px solid var(--sand);
-    font-size: 0.85rem;
-    line-height: 1.5;
-    display: flex;
-    align-items: flex-start;
-    gap: 0.75rem;
-    opacity: 0;
-    transform: translateX(-8px);
-    transition: opacity 0.3s ease, transform 0.3s ease;
-  }
-  .compare-item.visible {
-    opacity: 1;
-    transform: translateX(0);
-  }
-  .compare-item:last-child { border-bottom: none; }
-
-  .col-conventional .compare-item .item-icon { color: var(--red-pain); flex-shrink: 0; }
-  .col-lumora .compare-item .item-icon { color: var(--moss); flex-shrink: 0; }
-
-  .item-text strong {
-    display: block;
-    font-weight: 500;
-    color: var(--dark);
-    margin-bottom: 0.15rem;
-    font-size: 0.85rem;
-  }
-  .item-text span {
-    color: var(--muted);
+    margin-bottom: 0;
+}
+.compare-col-label {
+    padding: 0.9rem 1.4rem;
+    border-radius: 12px 12px 0 0;
     font-size: 0.78rem;
-    font-weight: 300;
-  }
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+}
+.col-label-conv {
+    background: rgba(0,0,0,0.05);
+    color: var(--text-light);
+}
+.col-label-lumora {
+    background: var(--primary-green);
+    color: var(--accent-green);
+}
 
-  .col-lumora .item-text strong { color: var(--forest); }
-
-  /* Talk to us button */
-  .talk-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    background: var(--amber);
-    color: var(--forest);
-    border: none;
-    padding: 0.8rem 1.8rem;
-    border-radius: 30px;
-    font-family: var(--font-body);
-    font-size: 0.85rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.2s;
-    opacity: 0;
-    transform: translateY(8px);
-    pointer-events: none;
-    letter-spacing: 0.01em;
-  }
-  .talk-btn.visible {
-    opacity: 1;
-    transform: translateY(0);
-    pointer-events: all;
-  }
-  .talk-btn:hover {
-    background: #B8962A;
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(200,168,75,0.35);
-  }
-
-  /* ── BUYER FLOW ── */
-  .pain-points-grid {
+.compare-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 1rem;
     width: 100%;
-    max-width: 680px;
+    max-width: 760px;
     margin-bottom: 2rem;
-  }
+}
+@media (max-width: 560px) {
+    .compare-header-row,
+    .compare-grid { grid-template-columns: 1fr; }
+}
 
-  @media (max-width: 500px) {
-    .pain-points-grid { grid-template-columns: 1fr; }
-  }
-
-  .pain-point-card {
+.compare-col {
     background: var(--white);
-    border: 1.5px solid var(--sand);
-    border-radius: 14px;
-    padding: 1.25rem;
+    border: 1.5px solid var(--border);
+    border-radius: 0 0 14px 14px;
+    overflow: hidden;
+}
+.compare-col.col-lumora { border-color: rgba(10,54,34,0.18); }
+
+.compare-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.9rem;
+    padding: 1.1rem 1.4rem;
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+    opacity: 0;
+    transform: translateY(6px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+.compare-item:last-child { border-bottom: none; }
+.compare-item.visible { opacity: 1; transform: translateY(0); }
+
+.item-dot {
+    width: 20px; height: 20px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.7rem;
+    font-weight: 700;
+    flex-shrink: 0;
+    margin-top: 1px;
+}
+.dot-cross { background: var(--red-bg); color: var(--red-pain); }
+.dot-check { background: rgba(46,204,113,0.12); color: var(--primary-green); }
+
+.item-body strong {
+    display: block;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-dark);
+    margin-bottom: 0.15rem;
+}
+.item-body span { font-size: 0.77rem; color: var(--text-light); line-height: 1.45; }
+
+/* ── TALK BTN (inline, after compare) ── */
+.talk-reveal {
     opacity: 0;
     transform: translateY(8px);
-    transition: all 0.3s ease;
-  }
-  .pain-point-card.visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
-  .pain-point-card .pp-icon {
-    font-size: 1.5rem;
-    margin-bottom: 0.5rem;
-    display: block;
-  }
-  .pain-point-card .pp-stat {
-    font-family: var(--font-display);
-    font-size: 1.6rem;
-    font-weight: 900;
-    color: var(--forest);
-    margin-bottom: 0.2rem;
-    letter-spacing: -0.03em;
-  }
-  .pain-point-card .pp-label {
-    font-size: 0.8rem;
-    color: var(--muted);
-    font-weight: 300;
-    line-height: 1.45;
-  }
+    transition: opacity 0.35s ease, transform 0.35s ease;
+    pointer-events: none;
+}
+.talk-reveal.visible { opacity: 1; transform: translateY(0); pointer-events: all; }
 
-  .solution-strip {
-    background: var(--forest);
-    border-radius: 14px;
-    padding: 1.5rem 2rem;
-    width: 100%;
-    max-width: 680px;
-    margin-bottom: 1.5rem;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1rem;
-    text-align: center;
-  }
-
-  @media (max-width: 500px) {
-    .solution-strip { grid-template-columns: 1fr; }
-  }
-
-  .sol-item .sol-icon { font-size: 1.4rem; margin-bottom: 0.4rem; display: block; }
-  .sol-item .sol-title {
-    font-size: 0.8rem;
-    font-weight: 600;
-    color: var(--sage);
-    margin-bottom: 0.2rem;
-  }
-  .sol-item .sol-desc {
-    font-size: 0.72rem;
-    color: rgba(244,240,230,0.6);
-    font-weight: 300;
-    line-height: 1.4;
-  }
-
-  /* ── FINAL / TALK SCREEN ── */
-  .talk-screen-inner {
-    text-align: center;
-    max-width: 520px;
-  }
-  .talk-screen-inner h1 { margin-bottom: 1rem; }
-  .talk-screen-inner .subtitle { margin-bottom: 2.5rem; }
-
-  .contact-form {
-    background: var(--white);
-    border: 1.5px solid var(--sand);
-    border-radius: 16px;
-    padding: 2rem;
-    width: 100%;
-    text-align: left;
-  }
-  .form-row { margin-bottom: 1rem; }
-  .form-row label {
-    display: block;
-    font-size: 0.75rem;
-    font-weight: 500;
-    color: var(--muted);
-    margin-bottom: 0.35rem;
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
-  }
-  .form-row input,
-  .form-row select,
-  .form-row textarea {
-    width: 100%;
-    padding: 0.7rem 1rem;
-    border: 1.5px solid var(--sand);
-    border-radius: 10px;
-    font-family: var(--font-body);
-    font-size: 0.85rem;
-    color: var(--dark);
-    background: var(--cream);
-    outline: none;
-    transition: border-color 0.2s;
-    resize: none;
-  }
-  .form-row input:focus,
-  .form-row select:focus,
-  .form-row textarea:focus {
-    border-color: var(--moss);
-  }
-  .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
-
-  @media (max-width: 460px) { .form-grid { grid-template-columns: 1fr; } }
-
-  .submit-btn {
-    width: 100%;
-    padding: 0.9rem;
-    background: var(--forest);
-    color: var(--cream);
-    border: none;
+.talk-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 0.85rem 2rem;
+    background: var(--accent-green);
+    color: var(--primary-green);
     border-radius: 30px;
-    font-family: var(--font-body);
-    font-size: 0.9rem;
-    font-weight: 600;
-    cursor: pointer;
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-decoration: none;
+    letter-spacing: 0.03em;
     transition: all 0.2s;
-    margin-top: 0.5rem;
-  }
-  .submit-btn:hover { background: var(--moss); }
+}
+.talk-btn:hover {
+    background: #27AE60;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(46,204,113,0.3);
+}
 
-  .restart-link {
-    display: inline-block;
-    margin-top: 1.5rem;
-    font-size: 0.8rem;
-    color: var(--muted);
-    cursor: pointer;
-    text-decoration: underline;
-    text-underline-offset: 3px;
-  }
-  .restart-link:hover { color: var(--moss); }
-
-  /* ── FOOTER HINT ── */
-  .screen-footer {
+/* ── FOOTER ── */
+.page-footer {
+    padding: 2rem;
     text-align: center;
-    padding: 1.5rem;
-    font-size: 0.72rem;
-    color: var(--muted);
-    letter-spacing: 0.05em;
-  }
+    font-size: 0.68rem;
+    color: var(--text-light);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    border-top: 1px solid var(--border);
+}
 </style>
 </head>
 <body>
 
 <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
 
-<!-- ════════════════════════════════════════════════════
+<!-- ══════════════════════════════════════
      SCREEN 0 — LANDING
-════════════════════════════════════════════════════ -->
+══════════════════════════════════════ -->
 <div class="screen active" id="s0">
-  <nav>
-    <div class="logo">Lumora AI </div>
+  <nav class="navbar">
+    <a href="./index.html" class="logo">Lumora</a>
     <button class="back-btn" id="backBtn" onclick="goBack()">← Back</button>
   </nav>
   <div class="content">
-    <p class="eyebrow">Interactive Product Demo</p>
-    <h1>The agricultural supply chain is <em>broken.</em><br>We're fixing it.</h1>
-    <p class="subtitle">Explore the platform from either side of the market. See the problem — and the solution — through the eyes of the people living it.</p>
+    <p class="eyebrow">Product Discovery</p>
+    <h1 class="screen-title">The agricultural supply chain<br>is broken. We're fixing it.</h1>
+    <p class="screen-sub">Explore the platform from either side of the market. See the problem — and the solution — through the eyes of the people living it.</p>
     <div class="choice-grid">
       <div class="choice-card" onclick="go('farmer-scenario')">
-        <span class="card-icon">🌾</span>
-        <div class="card-title">I'm a Farmer</div>
-        <div class="card-sub">I produce agricultural residues and need a better outcome than disposal</div>
+        <span class="choice-icon">🌾</span>
+        <div class="choice-label">I'm a Farmer</div>
+        <div class="choice-desc">I produce agricultural residues and need a better outcome than disposal</div>
       </div>
       <div class="choice-card" onclick="go('buyer-scenario')">
-        <span class="card-icon">🏭</span>
-        <div class="card-title">I'm a Buyer</div>
-        <div class="card-sub">I source biomass for industrial energy or extraction and need verified supply</div>
+        <span class="choice-icon">🏭</span>
+        <div class="choice-label">I'm a Buyer</div>
+        <div class="choice-desc">I source biomass for industrial energy or extraction and need verified supply</div>
       </div>
     </div>
   </div>
+  <footer class="page-footer">© 2026 Lumora. All rights reserved.</footer>
 </div>
 
-<!-- ════════════════════════════════════════════════════
+<!-- ══════════════════════════════════════
      SCREEN 1 — FARMER SCENARIO
-════════════════════════════════════════════════════ -->
+══════════════════════════════════════ -->
 <div class="screen" id="farmer-scenario">
-  <nav>
-    <div class="logo">Lumora AI</div>
+  <nav class="navbar">
+    <a href="./index.html" class="logo">Lumora</a>
     <button class="back-btn visible" onclick="goBack()">← Back</button>
   </nav>
   <div class="content">
     <div class="scenario-box">
       <p class="eyebrow">Your situation</p>
-      <h2>Harvest is done. You have 40 tonnes of grape pomace.</h2>
-      <p>The press is finished. The pomace is piling up in your facility. Regulations require you to deal with it within 60 days. What do you do?</p>
+      <h1 class="screen-title">Harvest is done. You have 40 tonnes of grape pomace.</h1>
+      <p>The press is finished. The pomace is building up. Regulations require you to deal with it within 60 days. What do you do?</p>
     </div>
     <div class="action-grid">
       <button class="action-btn btn-pain" onclick="go('farmer-pain')">
         <span class="btn-icon">🗑️</span>
-        <span class="btn-label">Dispose Locally</span>
+        <span class="btn-label">Pay to Dispose</span>
         <span class="btn-sub">Contact a licensed waste carrier</span>
       </button>
       <button class="action-btn btn-lumora" onclick="go('farmer-compare')">
@@ -720,345 +491,293 @@
       </button>
     </div>
   </div>
+  <footer class="page-footer">© 2026 Lumora. All rights reserved.</footer>
 </div>
 
-<!-- ════════════════════════════════════════════════════
-     SCREEN 2 — FARMER PAIN (disposal invoice)
-════════════════════════════════════════════════════ -->
+<!-- ══════════════════════════════════════
+     SCREEN 2 — FARMER PAIN
+══════════════════════════════════════ -->
 <div class="screen" id="farmer-pain">
-  <nav>
-    <div class="logo">Lumora AI <span>Agricultural Intelligence</span></div>
+  <nav class="navbar">
+    <a href="./index.html" class="logo">Lumora</a>
     <button class="back-btn visible" onclick="goBack()">← Back</button>
   </nav>
   <div class="content">
     <p class="eyebrow">Disposal confirmed</p>
-    <div class="invoice-card">
-      <div class="invoice-title">Waste Disposal — Annual Estimate</div>
-      <div class="invoice-amount"><span>€</span>30,000</div>
+    <div class="invoice-wrap">
+      <span class="invoice-tag">Invoice</span>
+      <div class="invoice-label">Waste Disposal — Annual Estimate</div>
+      <div class="invoice-amount"><sup>€</sup>30,000</div>
       <div class="invoice-sub">Per year, just to make your by-product disappear.<br>This used to cost €3,000. Regulations changed.</div>
       <div class="invoice-line"><span>Carrier collection fee</span><strong>€8,400</strong></div>
       <div class="invoice-line"><span>Licensed disposal facility</span><strong>€14,200</strong></div>
       <div class="invoice-line"><span>Documentation & compliance</span><strong>€4,800</strong></div>
       <div class="invoice-line"><span>Estimated fines risk (non-compliance)</span><strong>up to €40,000</strong></div>
     </div>
-    <p style="font-size:0.78rem;color:var(--muted);text-align:center;max-width:400px;line-height:1.6;margin-bottom:1.5rem;font-weight:300;">
-      Source: Ciocan et al., MDPI Applied Sciences (2023). Disposal fees have risen 10× in a decade due to tightening EU waste regulations.
-    </p>
+    <p class="invoice-source">Source: Ciocan et al., MDPI Applied Sciences (2023). Disposal fees have risen 10× in a decade due to tightening EU waste regulations.</p>
     <button class="reconsider-btn" onclick="go('farmer-compare')">There has to be a better way →</button>
   </div>
+  <footer class="page-footer">© 2026 Lumora. All rights reserved.</footer>
 </div>
 
-<!-- ════════════════════════════════════════════════════
+<!-- ══════════════════════════════════════
      SCREEN 3 — FARMER COMPARISON
-════════════════════════════════════════════════════ -->
+══════════════════════════════════════ -->
 <div class="screen" id="farmer-compare">
-  <nav>
-    <div class="logo">Lumora AI</div>
+  <nav class="navbar">
+    <a href="./index.html" class="logo">Lumora</a>
     <button class="back-btn visible" onclick="goBack()">← Back</button>
   </nav>
-  <div class="content" style="justify-content:flex-start;padding-top:2rem;">
+  <div class="content" style="justify-content:flex-start;padding-top:2.5rem;">
     <p class="eyebrow">Your options for selling</p>
-    <h1 style="font-size:clamp(1.4rem,3.5vw,2.2rem);margin-bottom:2rem;">Same material. Very different outcomes.</h1>
+    <h1 class="screen-title" style="margin-bottom:2rem;font-size:clamp(1.5rem,3.5vw,2.2rem);">Same material. Very different outcomes.</h1>
+
+    <div class="compare-header-row">
+      <div class="compare-col-label col-label-conv">Traditional Route</div>
+      <div class="compare-col-label col-label-lumora">Lumora AI</div>
+    </div>
+
     <div class="compare-grid" id="compareGrid">
-      <div class="compare-col col-conventional">
-        <div class="compare-header">Traditional Route</div>
-        <div class="compare-items" id="conventionalItems">
-          <div class="compare-item">
-            <span class="item-icon">✗</span>
-            <div class="item-text"><strong>Limited buyer pool</strong><span>Your local aggregator knows 3–4 buyers. No market visibility beyond that.</span></div>
-          </div>
-          <div class="compare-item">
-            <span class="item-icon">✗</span>
-            <div class="item-text"><strong>No quality leverage</strong><span>Your pomace is priced as generic waste. No way to prove it's high-quality.</span></div>
-          </div>
-          <div class="compare-item">
-            <span class="item-icon">✗</span>
-            <div class="item-text"><strong>Opaque pricing</strong><span>You accept what you're offered. No benchmark, no negotiating power.</span></div>
-          </div>
-          <div class="compare-item">
-            <span class="item-icon">✗</span>
-            <div class="item-text"><strong>Seasonal uncertainty</strong><span>No guarantee of buyers next harvest. Same search every year.</span></div>
-          </div>
+      <div class="compare-col col-conv">
+        <div class="compare-item" id="conv-1">
+          <div class="item-dot dot-cross">✕</div>
+          <div class="item-body"><strong>Limited buyer pool</strong><span>Your local aggregator knows 3–4 buyers. No visibility beyond that.</span></div>
+        </div>
+        <div class="compare-item" id="conv-2">
+          <div class="item-dot dot-cross">✕</div>
+          <div class="item-body"><strong>Lower margins</strong><span>Your pomace is priced as generic waste. No way to prove quality.</span></div>
+        </div>
+        <div class="compare-item" id="conv-3">
+          <div class="item-dot dot-cross">✕</div>
+          <div class="item-body"><strong>Opaque pricing</strong><span>Accept what you're offered. No benchmark, no negotiating power.</span></div>
+        </div>
+        <div class="compare-item" id="conv-4">
+          <div class="item-dot dot-cross">✕</div>
+          <div class="item-body"><strong>Seasonal uncertainty</strong><span>No guaranteed buyers next harvest. Same search every year.</span></div>
         </div>
       </div>
+
       <div class="compare-col col-lumora">
-        <div class="compare-header"><span>Lumora AI</span></div>
-        <div class="compare-items" id="lumoraItems">
-          <div class="compare-item">
-            <span class="item-icon">✓</span>
-            <div class="item-text"><strong>Open buyer network</strong><span>Access to verified industrial buyers across Europe — biogas, extraction, gasification.</span></div>
-          </div>
-          <div class="compare-item">
-            <span class="item-icon">✓</span>
-            <div class="item-text"><strong>Quality-backed pricing</strong><span>Your material is measured and certified. Buyers pay more for verified quality.</span></div>
-          </div>
-          <div class="compare-item">
-            <span class="item-icon">✓</span>
-            <div class="item-text"><strong>Transparent market rates</strong><span>See what comparable material trades for. Negotiate from a position of knowledge.</span></div>
-          </div>
-          <div class="compare-item">
-            <span class="item-icon">✓</span>
-            <div class="item-text"><strong>Consistent forward contracts</strong><span>Build buyer relationships that carry across seasons. Predictable income.</span></div>
-          </div>
+        <div class="compare-item" id="lum-1">
+          <div class="item-dot dot-check">✓</div>
+          <div class="item-body"><strong>Open platform access</strong><span>Access to verified industrial buyers across Europe — biogas, extraction, gasification.</span></div>
+        </div>
+        <div class="compare-item" id="lum-2">
+          <div class="item-dot dot-check">✓</div>
+          <div class="item-body"><strong>Better pricing</strong><span>Your material is measured and certified. Buyers pay more for verified quality.</span></div>
+        </div>
+        <div class="compare-item" id="lum-3">
+          <div class="item-dot dot-check">✓</div>
+          <div class="item-body"><strong>Transparent buyer network</strong><span>See what comparable material trades for. Negotiate from a position of knowledge.</span></div>
+        </div>
+        <div class="compare-item" id="lum-4">
+          <div class="item-dot dot-check">✓</div>
+          <div class="item-body"><strong>Fewer headaches</strong><span>Consistent forward contracts across seasons. Predictable income. No annual scramble.</span></div>
         </div>
       </div>
     </div>
-    <button class="talk-btn" id="farmerTalkBtn" onclick="go('talk')">
-      Let's talk about your harvest →
-    </button>
+
+    <div class="talk-reveal" id="farmerTalk">
+      <a href="mailto:hello.lumora@proton.me?subject=Farmer%20inquiry%20via%20Lumora%20Discovery" class="talk-btn">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+          <polyline points="22,6 12,13 2,6"/>
+        </svg>
+        Talk to us — hello.lumora@proton.me
+      </a>
+    </div>
   </div>
+  <footer class="page-footer">© 2026 Lumora. All rights reserved.</footer>
 </div>
 
-<!-- ════════════════════════════════════════════════════
+<!-- ══════════════════════════════════════
      SCREEN 4 — BUYER SCENARIO
-════════════════════════════════════════════════════ -->
+══════════════════════════════════════ -->
 <div class="screen" id="buyer-scenario">
-  <nav>
-    <div class="logo">Lumora AI</div>
+  <nav class="navbar">
+    <a href="./index.html" class="logo">Lumora</a>
     <button class="back-btn visible" onclick="goBack()">← Back</button>
   </nav>
   <div class="content">
     <div class="scenario-box">
       <p class="eyebrow">Your situation</p>
-      <h2>You're expanding into Northern Italy. You need 10,000 tonnes of feedstock annually.</h2>
-      <p>Your plant is ready. The technology works. The only thing standing between you and operations is a reliable, verified biomass supply chain.</p>
+      <h1 class="screen-title">You're expanding into Northern Italy. You need 10,000 tonnes of feedstock annually.</h1>
+      <p>Your plant is ready. The technology works. The only thing between you and operations is a reliable, verified biomass supply chain.</p>
     </div>
-    <div class="pain-points-grid" id="buyerPainGrid">
-      <div class="pain-point-card">
-        <span class="pp-icon">⏱️</span>
-        <div class="pp-stat">3–6 mo</div>
-        <div class="pp-label">Average time to qualify a new supplier network in an unfamiliar region</div>
-      </div>
-      <div class="pain-point-card">
-        <span class="pp-icon">❓</span>
-        <div class="pp-stat">0 checks</div>
-        <div class="pp-label">Quality verifications performed before the truck arrives at your plant</div>
-      </div>
-      <div class="pain-point-card">
-        <span class="pp-icon">📋</span>
-        <div class="pp-stat">Manual</div>
-        <div class="pp-label">RED III compliance documentation — assembled by hand per shipment, if at all</div>
-      </div>
-      <div class="pain-point-card">
-        <span class="pp-icon">📉</span>
-        <div class="pp-stat">+27–31%</div>
-        <div class="pp-label">Supply chain cost increase when off-spec biomass reaches the plant</div>
-      </div>
+    <div class="action-grid">
+      <button class="action-btn btn-pain" onclick="go('buyer-pain')">
+        <span class="btn-icon">🔎</span>
+        <span class="btn-label">Source it yourself</span>
+        <span class="btn-sub">The traditional way</span>
+      </button>
+      <button class="action-btn btn-lumora" onclick="go('buyer-compare')">
+        <span class="btn-icon">⚡</span>
+        <span class="btn-label">Use Lumora AI</span>
+        <span class="btn-sub">Verified supply from day one</span>
+      </button>
     </div>
-    <button class="action-btn btn-lumora" style="max-width:340px;margin-top:0.5rem;" onclick="go('buyer-solution')">
-      <span class="btn-label" style="font-size:0.95rem;">See how Lumora AI solves this</span>
-      <span class="btn-sub">Verified supply. Automated compliance. From day one.</span>
-    </button>
   </div>
+  <footer class="page-footer">© 2026 Lumora. All rights reserved.</footer>
 </div>
 
-<!-- ════════════════════════════════════════════════════
-     SCREEN 5 — BUYER SOLUTION
-════════════════════════════════════════════════════ -->
-<div class="screen" id="buyer-solution">
-  <nav>
-    <div class="logo">Lumora AI</div>
-    <button class="back-btn visible" onclick="goBack()">← Back</button>
-  </nav>
-  <div class="content" style="justify-content:flex-start;padding-top:2rem;">
-    <p class="eyebrow">The Lumora AI difference</p>
-    <h1 style="font-size:clamp(1.4rem,3.5vw,2.2rem);margin-bottom:1.5rem;">Quality verified before<br>the truck is loaded.</h1>
-    <div class="solution-strip">
-      <div class="sol-item">
-        <span class="sol-icon">📡</span>
-        <div class="sol-title">Screen at Source</div>
-        <div class="sol-desc">RGB + NIR measurement at the farm or processing facility. 30 seconds. Grade A/B/C in real time.</div>
-      </div>
-      <div class="sol-item">
-        <span class="sol-icon">🔬</span>
-        <div class="sol-title">Verify at Collection</div>
-        <div class="sol-desc">Full composition profile matched against your exact specifications before any commitment.</div>
-      </div>
-      <div class="sol-item">
-        <span class="sol-icon">📄</span>
-        <div class="sol-title">Certificate + RED III Docs</div>
-        <div class="sol-desc">Every shipment arrives with a quality certificate and complete EU compliance documentation. Automatically.</div>
-      </div>
-    </div>
-    <div class="pain-points-grid" id="buyerOutcomeGrid" style="margin-bottom:1.5rem;">
-      <div class="pain-point-card" style="border-color:rgba(74,124,63,0.3);">
-        <span class="pp-icon">✅</span>
-        <div class="pp-stat" style="color:var(--moss);">Weeks</div>
-        <div class="pp-label">Supplier qualification time — from months to weeks with pre-verified supplier profiles</div>
-      </div>
-      <div class="pain-point-card" style="border-color:rgba(74,124,63,0.3);">
-        <span class="pp-icon">📊</span>
-        <div class="pp-stat" style="color:var(--moss);">Zero</div>
-        <div class="pp-label">Surprise rejections. You know what's arriving before the truck leaves the farm.</div>
-      </div>
-      <div class="pain-point-card" style="border-color:rgba(74,124,63,0.3);">
-        <span class="pp-icon">🌿</span>
-        <div class="pp-stat" style="color:var(--moss);">Auto</div>
-        <div class="pp-label">RED III chain-of-custody documentation. Generated per transaction, no manual effort.</div>
-      </div>
-      <div class="pain-point-card" style="border-color:rgba(74,124,63,0.3);">
-        <span class="pp-icon">🔮</span>
-        <div class="pp-stat" style="color:var(--moss);">Ahead</div>
-        <div class="pp-label">Seasonal supply forecasting — know your feedstock availability months before harvest.</div>
-      </div>
-    </div>
-    <button class="talk-btn visible" onclick="go('talk')" style="opacity:1;transform:none;pointer-events:all;">
-      Talk to us about your supply chain →
-    </button>
-  </div>
-</div>
-
-<!-- ════════════════════════════════════════════════════
-     SCREEN 6 — TALK TO US
-════════════════════════════════════════════════════ -->
-<div class="screen" id="talk">
-  <nav>
-    <div class="logo">Lumora AI</div>
+<!-- ══════════════════════════════════════
+     SCREEN 5 — BUYER PAIN
+══════════════════════════════════════ -->
+<div class="screen" id="buyer-pain">
+  <nav class="navbar">
+    <a href="./index.html" class="logo">Lumora</a>
     <button class="back-btn visible" onclick="goBack()">← Back</button>
   </nav>
   <div class="content">
-    <div class="talk-screen-inner">
-      <p class="eyebrow">Get in touch</p>
-      <h1 style="font-size:clamp(1.8rem,4vw,2.8rem);">Let's talk about<br><em>your</em> situation.</h1>
-      <p class="subtitle">Whether you're dealing with disposal costs or struggling to source verified feedstock — we want to understand your specific challenge.</p>
-      <div class="contact-form">
-        <div class="form-grid">
-          <div class="form-row">
-            <label>Your name</label>
-            <input type="text" placeholder="Name">
-          </div>
-          <div class="form-row">
-            <label>Organisation</label>
-            <input type="text" placeholder="Company / Farm">
-          </div>
-        </div>
-        <div class="form-row">
-          <label>I am a</label>
-          <select>
-            <option>Farmer / Producer</option>
-            <option>Industrial Buyer (Biogas / Gasification)</option>
-            <option>Extraction Company</option>
-            <option>Aggregator / Co-operative</option>
-            <option>Investor / Partner</option>
-            <option>Other</option>
-          </select>
-        </div>
-        <div class="form-row">
-          <label>Your biggest challenge</label>
-          <textarea rows="3" placeholder="Tell us what's not working in your current setup..."></textarea>
-        </div>
-        <div class="form-row">
-          <label>Email</label>
-          <input type="email" placeholder="you@organisation.com">
-        </div>
-        <button class="submit-btn" onclick="submitted()">Send message →</button>
-      </div>
-      <span class="restart-link" onclick="restart()">↩ Start over</span>
+    <p class="eyebrow">The reality of traditional sourcing</p>
+    <div class="invoice-wrap" style="border-color:rgba(0,0,0,0.1);max-width:480px;">
+      <span class="invoice-tag" style="color:rgba(31,41,55,0.3);">Cost Report</span>
+      <div class="invoice-label">New Market Entry — Feedstock Qualification</div>
+      <div class="invoice-amount" style="color:var(--primary-green);font-size:clamp(2.5rem,8vw,4rem);">3–6 mo</div>
+      <div class="invoice-sub">Every time you enter a new market. Manually. From scratch.</div>
+      <div class="invoice-line"><span>Supplier site visits & sampling</span><strong>6–10 weeks</strong></div>
+      <div class="invoice-line"><span>Lab analysis per supplier</span><strong>€300–500 / sample</strong></div>
+      <div class="invoice-line"><span>Quality discovered at delivery</span><strong>After commitment</strong></div>
+      <div class="invoice-line"><span>Supply chain cost increase (off-spec)</span><strong>+27–31%</strong></div>
     </div>
+    <p class="invoice-source">Confirmed by industrial operators. Supply chain cost figure: peer-reviewed biomass logistics research.</p>
+    <button class="reconsider-btn" onclick="go('buyer-compare')">There has to be a better way →</button>
   </div>
+  <footer class="page-footer">© 2026 Lumora. All rights reserved.</footer>
 </div>
 
-<!-- ════════════════════════════════════════════════════
-     JS — NAVIGATION & ANIMATIONS
-════════════════════════════════════════════════════ -->
-<script>
-const SCREEN_ORDER = [
-  's0',
-  'farmer-scenario', 'farmer-pain', 'farmer-compare',
-  'buyer-scenario', 'buyer-solution',
-  'talk'
-];
+<!-- ══════════════════════════════════════
+     SCREEN 6 — BUYER COMPARISON
+══════════════════════════════════════ -->
+<div class="screen" id="buyer-compare">
+  <nav class="navbar">
+    <a href="./index.html" class="logo">Lumora</a>
+    <button class="back-btn visible" onclick="goBack()">← Back</button>
+  </nav>
+  <div class="content" style="justify-content:flex-start;padding-top:2.5rem;">
+    <p class="eyebrow">Two approaches. One clear winner.</p>
+    <h1 class="screen-title" style="margin-bottom:2rem;font-size:clamp(1.5rem,3.5vw,2.2rem);">Same goal. Very different journeys.</h1>
 
-const PROGRESS_MAP = {
+    <div class="compare-header-row">
+      <div class="compare-col-label col-label-conv">Traditional Sourcing</div>
+      <div class="compare-col-label col-label-lumora">Lumora AI</div>
+    </div>
+
+    <div class="compare-grid" id="buyerCompareGrid">
+      <div class="compare-col col-conv">
+        <div class="compare-item" id="bconv-1">
+          <div class="item-dot dot-cross">✕</div>
+          <div class="item-body"><strong>Months of manual qualification</strong><span>Site visits, sampling, lab analysis — before you know if a supplier is viable.</span></div>
+        </div>
+        <div class="compare-item" id="bconv-2">
+          <div class="item-dot dot-cross">✕</div>
+          <div class="item-body"><strong>Quality unknown until delivery</strong><span>Discover off-spec material at the weighbridge — after cost is committed.</span></div>
+        </div>
+        <div class="compare-item" id="bconv-3">
+          <div class="item-dot dot-cross">✕</div>
+          <div class="item-body"><strong>Manual RED III documentation</strong><span>Compliance paperwork assembled by hand per shipment. Error-prone and slow.</span></div>
+        </div>
+        <div class="compare-item" id="bconv-4">
+          <div class="item-dot dot-cross">✕</div>
+          <div class="item-body"><strong>No supply consistency</strong><span>Seasonal uncertainty. Same sourcing effort repeated every year, every region.</span></div>
+        </div>
+      </div>
+
+      <div class="compare-col col-lumora">
+        <div class="compare-item" id="blum-1">
+          <div class="item-dot dot-check">✓</div>
+          <div class="item-body"><strong>Weeks, not months</strong><span>Pre-verified supplier profiles matched to your exact specification from day one.</span></div>
+        </div>
+        <div class="compare-item" id="blum-2">
+          <div class="item-dot dot-check">✓</div>
+          <div class="item-body"><strong>Verified before the truck loads</strong><span>NIR quality measurement at source. You know what's arriving before it moves.</span></div>
+        </div>
+        <div class="compare-item" id="blum-3">
+          <div class="item-dot dot-check">✓</div>
+          <div class="item-body"><strong>Automatic RED III compliance</strong><span>Chain-of-custody documentation generated per transaction. No manual effort.</span></div>
+        </div>
+        <div class="compare-item" id="blum-4">
+          <div class="item-dot dot-check">✓</div>
+          <div class="item-body"><strong>Forward supply forecasting</strong><span>Seasonal yield prediction across your supplier network. Plan ahead, not after.</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="talk-reveal" id="buyerTalk">
+      <a href="mailto:hello.lumora@proton.me?subject=Buyer%20inquiry%20via%20Lumora%20Discovery" class="talk-btn">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+          <polyline points="22,6 12,13 2,6"/>
+        </svg>
+        Talk to us — hello.lumora@proton.me
+      </a>
+    </div>
+  </div>
+  <footer class="page-footer">© 2026 Lumora. All rights reserved.</footer>
+</div>
+
+<script>
+const PROGRESS = {
   's0': 0,
-  'farmer-scenario': 20,
-  'farmer-pain': 40,
+  'farmer-scenario': 18,
+  'farmer-pain': 38,
   'farmer-compare': 65,
-  'buyer-scenario': 30,
-  'buyer-solution': 65,
-  'talk': 100
+  'buyer-scenario': 18,
+  'buyer-pain': 38,
+  'buyer-compare': 65,
 };
 
 let history = ['s0'];
 
 function go(id) {
-  const current = history[history.length - 1];
-  document.getElementById(current).classList.remove('active');
+  const cur = history[history.length - 1];
+  document.getElementById(cur).classList.remove('active');
   document.getElementById(id).classList.add('active');
   history.push(id);
-  updateProgress(id);
+  document.getElementById('progressFill').style.width = (PROGRESS[id] || 0) + '%';
 
-  if (id === 'farmer-compare') animateCompare();
-  if (id === 'buyer-scenario') animateBuyerPain();
-  if (id === 'buyer-solution') animateBuyerOutcome();
+  if (id === 'farmer-compare') animateCompare('conv', 'lum', 'farmerTalk');
+  if (id === 'buyer-compare')  animateCompare('bconv', 'blum', 'buyerTalk');
 
   window.scrollTo(0, 0);
 }
 
 function goBack() {
   if (history.length <= 1) return;
-  const current = history.pop();
+  const cur = history.pop();
   const prev = history[history.length - 1];
-  document.getElementById(current).classList.remove('active');
+  document.getElementById(cur).classList.remove('active');
   document.getElementById(prev).classList.add('active');
-  updateProgress(prev);
+  document.getElementById('progressFill').style.width = (PROGRESS[prev] || 0) + '%';
   window.scrollTo(0, 0);
 }
 
-function restart() {
-  const current = history[history.length - 1];
-  document.getElementById(current).classList.remove('active');
-  document.getElementById('s0').classList.add('active');
-  history = ['s0'];
-  updateProgress('s0');
+function animateCompare(convPrefix, lumPrefix, talkId) {
+  // Reset
+  for (let i = 1; i <= 4; i++) {
+    const c = document.getElementById(convPrefix + '-' + i);
+    const l = document.getElementById(lumPrefix + '-' + i);
+    if (c) c.classList.remove('visible');
+    if (l) l.classList.remove('visible');
+  }
+  document.getElementById(talkId).classList.remove('visible');
 
-  // Reset animations
-  document.querySelectorAll('.compare-item').forEach(el => el.classList.remove('visible'));
-  document.querySelectorAll('.pain-point-card').forEach(el => el.classList.remove('visible'));
-  document.getElementById('farmerTalkBtn').classList.remove('visible');
-
-  window.scrollTo(0, 0);
-}
-
-function updateProgress(id) {
-  const pct = PROGRESS_MAP[id] || 0;
-  document.getElementById('progressFill').style.width = pct + '%';
-}
-
-function animateCompare() {
-  const items = document.querySelectorAll('.compare-item');
-  items.forEach((el, i) => {
-    setTimeout(() => {
-      el.classList.add('visible');
-      // Show talk button after last lumora item
-      if (i === items.length - 1) {
-        setTimeout(() => {
-          document.getElementById('farmerTalkBtn').classList.add('visible');
-        }, 300);
-      }
-    }, i * 120);
-  });
-}
-
-function animateBuyerPain() {
-  const cards = document.querySelectorAll('#buyerPainGrid .pain-point-card');
-  cards.forEach((el, i) => {
-    setTimeout(() => el.classList.add('visible'), i * 150);
-  });
-}
-
-function animateBuyerOutcome() {
-  const cards = document.querySelectorAll('#buyerOutcomeGrid .pain-point-card');
-  cards.forEach((el, i) => {
-    setTimeout(() => el.classList.add('visible'), i * 150);
-  });
-}
-
-function submitted() {
-  const btn = document.querySelector('.submit-btn');
-  btn.textContent = 'Message sent. We\'ll be in touch.';
-  btn.style.background = 'var(--moss)';
-  btn.disabled = true;
+  // Animate pairs with stagger
+  for (let i = 1; i <= 4; i++) {
+    (function(idx) {
+      setTimeout(() => {
+        const c = document.getElementById(convPrefix + '-' + idx);
+        const l = document.getElementById(lumPrefix + '-' + idx);
+        if (c) c.classList.add('visible');
+        if (l) l.classList.add('visible');
+        if (idx === 4) {
+          setTimeout(() => {
+            document.getElementById(talkId).classList.add('visible');
+          }, 300);
+        }
+      }, idx * 180);
+    })(i);
+  }
 }
 </script>
 
